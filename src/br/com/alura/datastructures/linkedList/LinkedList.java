@@ -77,6 +77,17 @@ public class LinkedList {
 
     public void remove(int position) {
 
+        if(!filledPosition(position)){
+            throw new IllegalArgumentException("The position is already empty");
+        }
+        if(position == 0){
+            removeBegin();
+            return;
+        }
+        Cell previousCell = getCell(position-1);
+        Cell cell = getCell(position);
+        previousCell.setNext(cell.getNext());
+        cell.setNext(null);
     }
 
 
@@ -85,16 +96,34 @@ public class LinkedList {
     }
 
     public boolean contains(Object o) {
+        Cell current = this.first;
+        int i = 0;
+        while(i < this.totalElements) {
+            if (o.equals(current.getElement())) {
+                return true;
+            }
+            current = current.getNext();
+            i++;
+        }
         return false;
     }
 
     @Override
     public String toString() {
-        if (totalElements == 0)
+        if (this.totalElements == 0)
             return "[]";
 
-        return "LinkedList { " +
-                "Cell = " + first +
-                '}';
+        Cell current = this.first;
+        StringBuilder builder = new StringBuilder("[");
+
+        for (int i = 0; i < totalElements; i++){
+            builder.append(current.getElement());
+            builder.append(',');
+            current = current.getNext();
+        }
+        builder.append("]");
+
+        return builder.toString();
+
     }
 }

@@ -38,6 +38,12 @@ public class LinkedListTest {
         System.out.println(list);
 
         System.out.println(list.size());
+
+        System.out.println(list.contains(s3));
+
+        list.remove(1);
+
+        System.out.println(list);
     }
 
 }
